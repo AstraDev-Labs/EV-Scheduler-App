@@ -22,16 +22,57 @@ class EmailService:
         self.smtp_password = os.getenv("MAIL_PASSWORD", "")
         self.from_email = "tarun.ganapathi2007@gmail.com"
         self.from_name = "Smart EV Scheduler"
+        self.resend_api_key = os.getenv("RESEND_API_KEY", "")
+
+    def send_via_resend(self, to_email: str, subject: str, html_content: str) -> bool:
+        """Send email via Resend API (Standard HTTPS Port 443 - Never blocked)"""
+        if not self.resend_api_key:
+            return False
+            
+        try:
+            import requests
+            url = "https://api.resend.com/emails"
+            headers = {
+                "Authorization": f"Bearer {self.resend_api_key}",
+                "Content-Type": "application/json"
+            }
+            data = {
+                "from": f"{self.from_name} <onboarding@resend.dev>",
+                "to": [to_email],
+                "subject": subject,
+                "html": html_content
+            }
+            
+            logger.info(f"DEBUG: Attempting Resend API dispatch to {to_email}...")
+            response = requests.post(url, headers=headers, json=data, timeout=10)
+            
+            if response.status_code in [200, 201]:
+                logger.info(f"SUCCESS: Email sent via Resend to {to_email}")
+                return True
+            else:
+                logger.error(f"ERROR: Resend API failed: {response.text}")
+                return False
+        except Exception as e:
+            logger.error(f"ERROR: Resend dispatch exception: {e}")
+            return False
 
     def send_email(self, to_email: str, subject: str, html_content: str) -> bool:
-        """Send an email using SMTP - pattern from working CTF project"""
+        """Send an email - tries Resend first (for Cloud), then SMTP"""
+        
+        # 1. Try Resend first (Standard choice for Cloud like Render)
+        if self.resend_api_key:
+            if self.send_via_resend(to_email, subject, html_content):
+                return True
+        else:
+            logger.info("NOTE: RESEND_API_KEY missing - skipping Resend dispatch.")
+
+        # 2. Fallback to SMTP (might fail on cloud due to port blocks)
         if not self.smtp_password:
-            logger.error(f"CRITICAL: MAIL_PASSWORD is missing in environment variables. Email will NOT be sent.")
-            logger.info(f"DEBUG: Would send email to {to_email} with subject: {subject}")
+            logger.error(f"CRITICAL: MAIL_PASSWORD is missing. Cannot use SMTP fallback.")
             return False
 
         try:
-            logger.debug(f"DEBUG: Attempting to send email to {to_email} via {self.smtp_server}...")
+            logger.info(f"DEBUG: Falling back to SMTP_SSL for {to_email}...")
             
             msg = MIMEMultipart()
             msg['From'] = self.smtp_username
@@ -46,10 +87,10 @@ class EmailService:
             logger.info(f"DEBUG: Sending email content to {to_email}...")
             server.sendmail(self.smtp_username, to_email, msg.as_string())
             server.quit()
-            logger.info(f"SUCCESS: Email sent to {to_email}")
+            logger.info(f"SUCCESS: Email sent via SMTP to {to_email}")
             return True
         except Exception as e:
-            logger.error(f"ERROR: Failed to send email. Reason: {e}")
+            logger.error(f"ERROR: Failed to send email via SMTP. Reason: {e}")
             return False
 
 
