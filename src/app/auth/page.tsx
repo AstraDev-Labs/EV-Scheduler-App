@@ -129,7 +129,7 @@ export default function LoginPage() {
                 </div>
 
                 <TiltedCard>
-                    <div className="glass-card p-1 lg:p-10 shadow-[0_0_50px_rgba(0,0,0,0.5)] border-white/5 relative group">
+                    <div className="glass-card p-1 lg:p-10 shadow-[0_0_50px_rgba(0,0,0,0.5)] border-white/5 relative group pointer-events-auto">
                         <div className="spotlight group-hover:opacity-100 opacity-0 transition-opacity duration-500" style={{ backgroundImage: `radial-gradient(600px circle at ${x}px ${y}px, rgba(16, 185, 129, 0.15), transparent 80%)` }} />
 
                         <div className="p-8 relative z-10">
