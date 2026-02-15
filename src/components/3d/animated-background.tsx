@@ -58,7 +58,7 @@ function StarField() {
 export default function AnimatedBackground() {
     return (
         <div className="fixed inset-0 -z-10 bg-[#030712] pointer-events-none">
-            <Canvas camera={{ position: [0, 0, 1] }}>
+            <Canvas camera={{ position: [0, 0, 1] }} style={{ pointerEvents: 'none' }}>
                 <StarField />
             </Canvas>
         </div>

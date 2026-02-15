@@ -177,3 +177,8 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(16, 185, 129, 0.4);
 }
+
+/* NUCLEAR FIX: Force 3D Canvas to never block clicks */
+canvas {
+  pointer-events: none !important;
+}
