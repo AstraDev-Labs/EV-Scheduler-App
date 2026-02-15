@@ -17,7 +17,7 @@ class EmailService:
     def __init__(self):
         # SMTP Configuration - matching working CTF setup
         self.smtp_server = "smtp.gmail.com"
-        self.smtp_port = 587
+        self.smtp_port = 465
         self.smtp_username = "tarun.ganapathi2007@gmail.com"
         self.smtp_password = os.getenv("MAIL_PASSWORD", "")
         self.from_email = "tarun.ganapathi2007@gmail.com"
@@ -39,9 +39,8 @@ class EmailService:
             msg['Subject'] = subject
             msg.attach(MIMEText(html_content, 'html'))
 
-            logger.info("DEBUG: Connecting to SMTP server...")
-            server = smtplib.SMTP(self.smtp_server, self.smtp_port, timeout=10)
-            server.starttls()
+            logger.info(f"DEBUG: Connecting to SMTP_SSL server on {self.smtp_port}...")
+            server = smtplib.SMTP_SSL(self.smtp_server, self.smtp_port, timeout=10)
             logger.info("DEBUG: Logging in to SMTP...")
             server.login(self.smtp_username, self.smtp_password)
             logger.info(f"DEBUG: Sending email content to {to_email}...")
