@@ -57,7 +57,9 @@ function StarField() {
 
 export default function AnimatedBackground() {
     return (
-        <div className="fixed inset-0 -z-10 bg-[#030712] pointer-events-none">
+        <div className="fixed inset-0 -z-10 bg-[#030712]/40 pointer-events-none">
+            {/* Gradient Overlay for Depth */}
+            <div className="absolute inset-0 bg-gradient-to-b from-[#030712] via-transparent to-[#030712] opacity-60" />
             <Canvas camera={{ position: [0, 0, 1] }} style={{ pointerEvents: 'none' }}>
                 <StarField />
             </Canvas>

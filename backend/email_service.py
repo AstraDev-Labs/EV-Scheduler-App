@@ -40,7 +40,7 @@ class EmailService:
             msg.attach(MIMEText(html_content, 'html'))
 
             logger.info("DEBUG: Connecting to SMTP server...")
-            server = smtplib.SMTP(self.smtp_server, self.smtp_port)
+            server = smtplib.SMTP(self.smtp_server, self.smtp_port, timeout=10)
             server.starttls()
             logger.debug("DEBUG: Logging in...")
             server.login(self.smtp_username, self.smtp_password)
