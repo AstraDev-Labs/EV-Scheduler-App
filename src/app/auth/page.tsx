@@ -70,11 +70,32 @@ export default function LoginPage() {
                 const data = await response.json()
 
                 if (response.ok && data.status === 'success') {
-                    setMessage('Success! ' + data.message)
+                    // Step 2: Trigger email verification via Vercel API
+                    try {
+                        const emailResponse = await fetch('/api/auth/send-verification', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                email: data.email,
+                                full_name: data.full_name,
+                                verification_token: data.verification_token
+                            })
+                        })
+
+                        if (emailResponse.ok) {
+                            setMessage('Success! Registration complete. Please check your email to verify.')
+                        } else {
+                            setMessage('Registration successful, but email verify link failed. Please check back later.')
+                        }
+                    } catch (emailErr) {
+                        console.error('Email error:', emailErr)
+                        setMessage('Account created! But we couldn\'t send the verification email. Please contact support.')
+                    }
+
                     setEmail('')
                     setPassword('')
                     setFullName('')
-                    setTimeout(() => setMode('login'), 2000)
+                    setTimeout(() => setMode('login'), 3000)
                 } else {
                     setMessage(data.detail || data.error || 'Registration failed')
                 }

@@ -490,31 +490,14 @@ def register(request: RegisterRequest):
         if not result["success"]:
             raise HTTPException(status_code=409, detail=result["error"])
         
-        # Send verification email
-        logger.debug(f"DEBUG: Initiating email send to {request.email} with role {role}")
-        try:
-            email_sent = email_service.send_verification_email(
-                to_email=request.email,
-                user_name=request.full_name,
-                verification_token=verification_token
-            )
-            logger.debug(f"DEBUG: Email service returned: {email_sent}")
-        except Exception as e:
-            logger.error(f"DEBUG: CRITICAL ERROR calling email service: {e}")
-            email_sent = False
-        
-        if email_sent:
-            logger.info(f"Registration successful and verification email sent to {request.email}")
-            return {
-                "status": "success", 
-                "message": "Registration successful. Please check your email to verify your account."
-            }
-        else:
-            logger.warning(f"Registration successful but email failed to send to {request.email}")
-            return {
-                "status": "success",
-                "message": "Registration successful. Email verification pending - check your server logs for the token."
-            }
+        # Return success with token so frontend can trigger Vercel email sending
+        return {
+            "status": "success",
+            "message": "Registration successful. Sending verification email...",
+            "verification_token": verification_token,
+            "email": request.email,
+            "full_name": request.full_name
+        }
             
     except HTTPException:
         raise
