@@ -58,8 +58,8 @@ function StarField() {
 export default function AnimatedBackground() {
     return (
         <div className="fixed inset-0 pointer-events-none" style={{ zIndex: -5 }}>
-            {/* Deep Space Base */}
-            <div className="absolute inset-0 bg-black" />
+            {/* Deep Midnight Base */}
+            <div className="absolute inset-0 bg-[#020617]" />
 
             {/* Stars rendering above backend but below UI */}
             <Canvas camera={{ position: [0, 0, 1] }} style={{ pointerEvents: 'none' }}>
@@ -67,7 +67,7 @@ export default function AnimatedBackground() {
             </Canvas>
 
             {/* Subtle Gradient for depth */}
-            <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/50" />
+            <div className="absolute inset-0 bg-gradient-to-b from-[#020617]/50 via-transparent to-[#020617]/50" />
         </div>
     )
 }
