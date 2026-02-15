@@ -199,8 +199,8 @@ class EmailService:
         verification_token: str
     ) -> bool:
         """Send email verification link"""
-        # Frontend URL for verification
-        frontend_url = os.getenv("FRONTEND_URL", "http://localhost:3000")
+        # Frontend URL for verification - default to Vercel production if not set
+        frontend_url = os.getenv("FRONTEND_URL", "https://ev-scheduler-app.vercel.app")
         verification_link = f"{frontend_url}/verify-email?token={verification_token}"
         
         subject = "Verify Your Smart EV Scheduler Account"
