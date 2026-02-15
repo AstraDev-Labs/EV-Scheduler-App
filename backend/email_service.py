@@ -20,7 +20,7 @@ class EmailService:
         self.smtp_port = 465
         self.smtp_username = "tarun.ganapathi2007@gmail.com"
         self.smtp_password = os.getenv("MAIL_PASSWORD", "")
-        self.from_email = "tarun.ganapathi2007@gmail.com"
+        self.from_email = os.getenv("MAIL_FROM", "onboarding@resend.dev")
         self.from_name = "Smart EV Scheduler"
         self.resend_api_key = os.getenv("RESEND_API_KEY", "")
 
@@ -37,7 +37,7 @@ class EmailService:
                 "Content-Type": "application/json"
             }
             data = {
-                "from": f"{self.from_name} <onboarding@resend.dev>",
+                "from": f"{self.from_name} <{self.from_email}>",
                 "to": [to_email],
                 "subject": subject,
                 "html": html_content
