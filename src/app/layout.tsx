@@ -29,13 +29,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" className="dark" suppressHydrationWarning>
       <body
         className={`${inter.variable} ${outfit.variable} font-sans antialiased min-h-screen text-foreground relative`}
       >
         <LocationProvider>
           <ClientSideExperience />
-          {children}
+          <div className="relative z-10">
+            {children}
+          </div>
           <Toaster richColors position="top-center" />
         </LocationProvider>
       </body>

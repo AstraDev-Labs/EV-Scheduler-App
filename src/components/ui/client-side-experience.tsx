@@ -20,9 +20,9 @@ export default function ClientSideExperience() {
     return (
         <>
             <AnimatedBackground />
-            <Suspense fallback={null}>
+            {/* <Suspense fallback={null}>
                 <PageLoading />
-            </Suspense>
+            </Suspense> */}
             <ChatAssistant />
         </>
     )
