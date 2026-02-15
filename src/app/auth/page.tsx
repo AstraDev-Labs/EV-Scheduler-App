@@ -13,7 +13,7 @@ import TiltedCard from '@/components/ui/tilted-card'
 
 const AnimatedBackground = dynamic(() => import('@/components/3d/animated-background'), {
     ssr: false,
-    loading: () => <div className="fixed inset-0 -z-10 bg-black" />
+    loading: () => <div className="fixed inset-0 -z-10 bg-black pointer-events-none" />
 })
 
 export default function LoginPage() {

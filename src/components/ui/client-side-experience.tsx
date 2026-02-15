@@ -5,7 +5,7 @@ import { Suspense } from 'react'
 
 const AnimatedBackground = dynamic(() => import('@/components/3d/animated-background'), {
     ssr: false,
-    loading: () => <div className="fixed inset-0 -z-10 bg-black" />
+    loading: () => <div className="fixed inset-0 -z-10 bg-black pointer-events-none" />
 })
 
 const PageLoading = dynamic(() => import('@/components/ui/page-loading'), {
