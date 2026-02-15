@@ -2,29 +2,35 @@ import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 
 export async function POST(req: Request) {
-    try {
-        const { email, full_name, verification_token } = await JSON.parse(await req.text());
+  try {
+    const body = await req.json();
+    const { email, full_name, verification_token } = body;
 
-        if (!email || !verification_token) {
-            return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
-        }
+    if (!process.env.MAIL_PASSWORD) {
+      console.error('CRITICAL: MAIL_PASSWORD is not set in Vercel environment variables');
+      return NextResponse.json({ error: 'Mail server unconfigured' }, { status: 500 });
+    }
 
-        const frontendUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://ev-scheduler-app.vercel.app';
-        const verificationLink = `${frontendUrl}/verify-email?token=${verification_token}`;
+    if (!email || !verification_token) {
+      return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
+    }
 
-        const transporter = nodemailer.createTransport({
-            service: 'gmail',
-            auth: {
-                user: 'tarun.ganapathi2007@gmail.com',
-                pass: process.env.MAIL_PASSWORD,
-            },
-        });
+    const frontendUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://ev-scheduler-app.vercel.app';
+    const verificationLink = `${frontendUrl}/verify-email?token=${verification_token}`;
 
-        const mailOptions = {
-            from: '"Smart EV Scheduler" <tarun.ganapathi2007@gmail.com>',
-            to: email,
-            subject: 'Verify Your Smart EV Scheduler Account',
-            html: `
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: 'tarun.ganapathi2007@gmail.com',
+        pass: process.env.MAIL_PASSWORD,
+      },
+    });
+
+    const mailOptions = {
+      from: '"Smart EV Scheduler" <tarun.ganapathi2007@gmail.com>',
+      to: email,
+      subject: 'Verify Your Smart EV Scheduler Account',
+      html: `
         <!DOCTYPE html>
         <html>
         <body style="font-family: Arial, sans-serif; background-color: #0f172a; color: #ffffff; padding: 40px; text-align: center;">
@@ -42,13 +48,13 @@ export async function POST(req: Request) {
         </body>
         </html>
       `,
-        };
+    };
 
-        await transporter.sendMail(mailOptions);
-        return NextResponse.json({ status: 'success', message: 'Verification email sent' });
+    await transporter.sendMail(mailOptions);
+    return NextResponse.json({ status: 'success', message: 'Verification email sent' });
 
-    } catch (error) {
-        console.error('Email Error:', error);
-        return NextResponse.json({ error: 'Failed to send email' }, { status: 500 });
-    }
+  } catch (error) {
+    console.error('Email Error:', error);
+    return NextResponse.json({ error: 'Failed to send email' }, { status: 500 });
+  }
 }
