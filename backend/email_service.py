@@ -26,8 +26,8 @@ class EmailService:
     def send_email(self, to_email: str, subject: str, html_content: str) -> bool:
         """Send an email using SMTP - pattern from working CTF project"""
         if not self.smtp_password:
-            logger.debug(f"DEBUG: MAIL_PASSWORD is missing in environment variables.")
-            logger.debug(f"DEBUG: Would send email to {to_email} with subject: {subject}")
+            logger.error(f"CRITICAL: MAIL_PASSWORD is missing in environment variables. Email will NOT be sent.")
+            logger.info(f"DEBUG: Would send email to {to_email} with subject: {subject}")
             return False
 
         try:
@@ -42,9 +42,9 @@ class EmailService:
             logger.info("DEBUG: Connecting to SMTP server...")
             server = smtplib.SMTP(self.smtp_server, self.smtp_port, timeout=10)
             server.starttls()
-            logger.debug("DEBUG: Logging in...")
+            logger.info("DEBUG: Logging in to SMTP...")
             server.login(self.smtp_username, self.smtp_password)
-            logger.debug("DEBUG: Sending data...")
+            logger.info(f"DEBUG: Sending email content to {to_email}...")
             server.sendmail(self.smtp_username, to_email, msg.as_string())
             server.quit()
             logger.info(f"SUCCESS: Email sent to {to_email}")
