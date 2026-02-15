@@ -90,14 +90,13 @@ export default function LoginPage() {
 
 
             {/* Spotlight Overlay */}
-            {/* Spotlight Overlay - Commented out for debugging
+            {/* Spotlight Overlay */}
             <div
-                className="pointer-events-none fixed inset-0 z-30 transition duration-300 lg:absolute"
+                className="pointer-events-none fixed inset-0 z-0 transition duration-300 lg:absolute"
                 style={{
                     background: `radial-gradient(600px circle at ${x}px ${y}px, rgba(16, 185, 129, 0.05), transparent 80%)`
                 }}
             />
-            */}
 
             <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}

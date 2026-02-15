@@ -19,10 +19,10 @@ const ChatAssistant = dynamic(() => import('@/components/ChatAssistant'), {
 export default function ClientSideExperience() {
     return (
         <>
-            {/* <AnimatedBackground /> */}
-            {/* <Suspense fallback={null}>
+            <AnimatedBackground />
+            <Suspense fallback={null}>
                 <PageLoading />
-            </Suspense> */}
+            </Suspense>
             <ChatAssistant />
         </>
     )
