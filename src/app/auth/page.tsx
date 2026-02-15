@@ -130,156 +130,155 @@ export default function LoginPage() {
                     </motion.p>
                 </div>
 
-                <TiltedCard>
-                    <div className="glass-card p-1 lg:p-10 shadow-[0_0_50px_rgba(0,0,0,0.5)] border-white/5 relative group pointer-events-auto">
-                        <div className="spotlight group-hover:opacity-100 opacity-0 transition-opacity duration-500" style={{ backgroundImage: `radial-gradient(600px circle at ${x}px ${y}px, rgba(16, 185, 129, 0.15), transparent 80%)` }} />
+                <div className="glass-card p-1 lg:p-10 shadow-[0_0_50px_rgba(0,0,0,0.5)] border-white/5 relative group pointer-events-auto">
+                    <div className="spotlight group-hover:opacity-100 opacity-0 transition-opacity duration-500" style={{ backgroundImage: `radial-gradient(600px circle at ${x}px ${y}px, rgba(16, 185, 129, 0.15), transparent 80%)` }} />
 
-                        <div className="p-8 relative z-10">
-                            <div className="flex gap-1 p-1 bg-white/5 rounded-2xl mb-10 border border-white/5">
-                                <button
-                                    className={`flex-1 py-3 rounded-xl text-xs font-bold transition-all uppercase tracking-widest ${mode === 'login' ? 'bg-primary text-black shadow-lg shadow-primary/20' : 'text-gray-500 hover:text-white'
-                                        }`}
-                                    onClick={() => setMode('login')}
-                                >
-                                    Sign In
-                                </button>
-                                <button
-                                    className={`flex-1 py-3 rounded-xl text-xs font-bold transition-all uppercase tracking-widest ${mode === 'signup' ? 'bg-primary text-black shadow-lg shadow-primary/20' : 'text-gray-500 hover:text-white'
-                                        }`}
-                                    onClick={() => setMode('signup')}
-                                >
-                                    Register
-                                </button>
-                            </div>
+                    <div className="p-8 relative z-10">
+                        <div className="flex gap-1 p-1 bg-white/5 rounded-2xl mb-10 border border-white/5">
+                            <button
+                                className={`flex-1 py-3 rounded-xl text-xs font-bold transition-all uppercase tracking-widest ${mode === 'login' ? 'bg-primary text-black shadow-lg shadow-primary/20' : 'text-gray-500 hover:text-white'
+                                    }`}
+                                onClick={() => setMode('login')}
+                            >
+                                Sign In
+                            </button>
+                            <button
+                                className={`flex-1 py-3 rounded-xl text-xs font-bold transition-all uppercase tracking-widest ${mode === 'signup' ? 'bg-primary text-black shadow-lg shadow-primary/20' : 'text-gray-500 hover:text-white'
+                                    }`}
+                                onClick={() => setMode('signup')}
+                            >
+                                Register
+                            </button>
+                        </div>
 
-                            <AnimatePresence mode="wait">
-                                <motion.form
-                                    key={mode}
-                                    initial={{ opacity: 0, x: mode === 'login' ? -20 : 20 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    exit={{ opacity: 0, x: mode === 'login' ? 20 : -20 }}
-                                    transition={{ duration: 0.3 }}
-                                    className="space-y-6"
-                                    onSubmit={handleAuth}
-                                >
-                                    {mode === 'signup' && (
-                                        <div className="space-y-6">
-                                            <div className="relative group">
-                                                <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within:text-primary transition-colors">
-                                                    <UserIcon size={18} />
-                                                </div>
-                                                <input
-                                                    type="text"
-                                                    required
-                                                    className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-12 pr-4 text-white placeholder-gray-600 focus:outline-none focus:border-primary/50 focus:ring-4 focus:ring-primary/10 transition-all font-medium"
-                                                    placeholder="Full Legal Name"
-                                                    value={fullName}
-                                                    onChange={(e) => setFullName(e.target.value)}
-                                                />
-                                            </div>
-                                            <div className="relative group">
-                                                <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within:text-primary transition-colors">
-                                                    <ShieldCheck size={18} />
-                                                </div>
-                                                <input
-                                                    type="text"
-                                                    className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-12 pr-4 text-white placeholder-gray-600 focus:outline-none focus:border-primary/50 focus:ring-4 focus:ring-primary/10 transition-all font-medium"
-                                                    placeholder="Access Code (Optional)"
-                                                    value={adminCode}
-                                                    onChange={(e) => setAdminCode(e.target.value)}
-                                                />
-                                            </div>
-                                        </div>
-                                    )}
-
+                        <AnimatePresence mode="wait">
+                            <motion.form
+                                key={mode}
+                                initial={{ opacity: 0, x: mode === 'login' ? -20 : 20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                exit={{ opacity: 0, x: mode === 'login' ? 20 : -20 }}
+                                transition={{ duration: 0.3 }}
+                                className="space-y-6"
+                                onSubmit={handleAuth}
+                            >
+                                {mode === 'signup' && (
                                     <div className="space-y-6">
                                         <div className="relative group">
                                             <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within:text-primary transition-colors">
-                                                <Mail size={18} />
+                                                <UserIcon size={18} />
                                             </div>
                                             <input
-                                                type="email"
+                                                type="text"
                                                 required
                                                 className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-12 pr-4 text-white placeholder-gray-600 focus:outline-none focus:border-primary/50 focus:ring-4 focus:ring-primary/10 transition-all font-medium"
-                                                placeholder="Email Address"
-                                                value={email}
-                                                onChange={(e) => setEmail(e.target.value)}
+                                                placeholder="Full Legal Name"
+                                                value={fullName}
+                                                onChange={(e) => setFullName(e.target.value)}
                                             />
                                         </div>
                                         <div className="relative group">
                                             <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within:text-primary transition-colors">
-                                                <Lock size={18} />
+                                                <ShieldCheck size={18} />
                                             </div>
                                             <input
-                                                type="password"
-                                                required
+                                                type="text"
                                                 className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-12 pr-4 text-white placeholder-gray-600 focus:outline-none focus:border-primary/50 focus:ring-4 focus:ring-primary/10 transition-all font-medium"
-                                                placeholder="Password"
-                                                value={password}
-                                                onChange={(e) => setPassword(e.target.value)}
+                                                placeholder="Access Code (Optional)"
+                                                value={adminCode}
+                                                onChange={(e) => setAdminCode(e.target.value)}
                                             />
                                         </div>
                                     </div>
+                                )}
 
-                                    <button
-                                        type="submit"
-                                        disabled={loading}
-                                        className="w-full bg-primary hover:bg-emerald-400 text-black font-black py-5 rounded-2xl transition-all shadow-xl shadow-primary/20 flex items-center justify-center gap-3 uppercase tracking-[0.2em] text-xs active:scale-[0.98] disabled:opacity-50 group"
-                                    >
-                                        {loading ? (
-                                            <div className="flex items-center gap-2">
-                                                <div className="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin" />
-                                                Connecting...
-                                            </div>
-                                        ) : (
-                                            <>
-                                                {mode === 'login' ? 'Sign In Now' : 'Register Now'}
-                                                <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-                                            </>
-                                        )}
-                                    </button>
-                                </motion.form>
-                            </AnimatePresence>
-
-                            <div className="relative my-10">
-                                <div className="absolute inset-0 flex items-center">
-                                    <div className="w-full border-t border-white/5"></div>
+                                <div className="space-y-6">
+                                    <div className="relative group">
+                                        <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within:text-primary transition-colors">
+                                            <Mail size={18} />
+                                        </div>
+                                        <input
+                                            type="email"
+                                            required
+                                            className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-12 pr-4 text-white placeholder-gray-600 focus:outline-none focus:border-primary/50 focus:ring-4 focus:ring-primary/10 transition-all font-medium"
+                                            placeholder="Email Address"
+                                            value={email}
+                                            onChange={(e) => setEmail(e.target.value)}
+                                        />
+                                    </div>
+                                    <div className="relative group">
+                                        <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within:text-primary transition-colors">
+                                            <Lock size={18} />
+                                        </div>
+                                        <input
+                                            type="password"
+                                            required
+                                            className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-12 pr-4 text-white placeholder-gray-600 focus:outline-none focus:border-primary/50 focus:ring-4 focus:ring-primary/10 transition-all font-medium"
+                                            placeholder="Password"
+                                            value={password}
+                                            onChange={(e) => setPassword(e.target.value)}
+                                        />
+                                    </div>
                                 </div>
-                                <div className="relative flex justify-center text-[10px] font-black tracking-widest uppercase">
-                                    <span className="bg-[#0b1221] px-4 text-gray-600">Social Authentication</span>
-                                </div>
-                            </div>
 
-                            <button
-                                type="button"
-                                className="w-full glass hover:bg-white/5 text-gray-400 py-4 rounded-2xl transition-all flex items-center justify-center gap-3 font-bold text-sm border border-white/5 group"
-                                onClick={() => alert("Google connectivity pending...")}
-                            >
-                                <Github size={20} className="group-hover:text-white transition-colors" />
-                                continue with Google
-                            </button>
-
-                            {message && (
-                                <motion.div
-                                    initial={{ opacity: 0, y: 10 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    className={`mt-8 p-4 rounded-2xl text-center text-sm font-bold border ${message.includes('Success')
-                                        ? 'bg-primary/10 text-primary border-primary/20'
-                                        : 'bg-red-500/10 text-red-400 border-red-500/20'
-                                        }`}
+                                <button
+                                    type="submit"
+                                    disabled={loading}
+                                    className="w-full bg-primary hover:bg-emerald-400 text-black font-black py-5 rounded-2xl transition-all shadow-xl shadow-primary/20 flex items-center justify-center gap-3 uppercase tracking-[0.2em] text-xs active:scale-[0.98] disabled:opacity-50 group"
                                 >
-                                    {message}
-                                </motion.div>
-                            )}
+                                    {loading ? (
+                                        <div className="flex items-center gap-2">
+                                            <div className="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin" />
+                                            Connecting...
+                                        </div>
+                                    ) : (
+                                        <>
+                                            {mode === 'login' ? 'Sign In Now' : 'Register Now'}
+                                            <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                                        </>
+                                    )}
+                                </button>
+                            </motion.form>
+                        </AnimatePresence>
+
+                        <div className="relative my-10">
+                            <div className="absolute inset-0 flex items-center">
+                                <div className="w-full border-t border-white/5"></div>
+                            </div>
+                            <div className="relative flex justify-center text-[10px] font-black tracking-widest uppercase">
+                                <span className="bg-[#0b1221] px-4 text-gray-600">Social Authentication</span>
+                            </div>
                         </div>
+
+                        <button
+                            type="button"
+                            className="w-full glass hover:bg-white/5 text-gray-400 py-4 rounded-2xl transition-all flex items-center justify-center gap-3 font-bold text-sm border border-white/5 group"
+                            onClick={() => alert("Google connectivity pending...")}
+                        >
+                            <Github size={20} className="group-hover:text-white transition-colors" />
+                            continue with Google
+                        </button>
+
+                        {message && (
+                            <motion.div
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                className={`mt-8 p-4 rounded-2xl text-center text-sm font-bold border ${message.includes('Success')
+                                    ? 'bg-primary/10 text-primary border-primary/20'
+                                    : 'bg-red-500/10 text-red-400 border-red-500/20'
+                                    }`}
+                            >
+                                {message}
+                            </motion.div>
+                        )}
                     </div>
-                </TiltedCard>
+                </div>
+
 
                 <p className="mt-10 text-center text-gray-600 text-[10px] font-bold tracking-[0.3em] uppercase">
                     Secure Cloud • © 2026 SmartCharge EV
                 </p>
             </motion.div>
-        </div>
+        </div >
     )
 }
 
