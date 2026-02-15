@@ -1,0 +1,13 @@
+fastapi
+uvicorn
+pandas
+scikit-learn
+joblib
+requests
+pydantic
+supabase
+bcrypt
+python-dotenv
+langchain-openai
+langchain-community
+openai
