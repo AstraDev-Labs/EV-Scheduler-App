@@ -510,13 +510,10 @@ def register(request: RegisterRequest):
                 "message": "Registration successful. Please check your email to verify your account."
             }
         else:
-            # AUTO-VERIFY FALLBACK: Since SMTP is blocked on cloud, we auto-verify to prevent blocking the user
-            logger.warning(f"SMTP FAILED on Cloud - Auto-verifying user: {request.email}")
-            db.client.table("users").update({"is_verified": True}).eq("email", request.email).execute()
-            
+            logger.warning(f"Registration successful but email failed to send to {request.email}")
             return {
                 "status": "success",
-                "message": "Registration successful! (Auto-verified due to server network restrictions). You can now log in."
+                "message": "Registration successful. Email verification pending - check your server logs for the token."
             }
             
     except HTTPException:

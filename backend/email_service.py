@@ -317,6 +317,9 @@ class EmailService:
         </html>
         """
         
+        # LOG FALLBACK: Always log the link for debugging if SMTP fails
+        logger.info(f"VERIFICATION LINK: {verification_link}")
+        
         return self.send_email(to_email, subject, html_content)
 
 # Create singleton instance
