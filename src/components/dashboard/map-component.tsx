@@ -191,6 +191,11 @@ export default function MapComponent({ filterAvailable = false, userLocation }: 
                                             effectiveStatus === 'Occupied' ? 'bg-red-500' : 'bg-red-500'
                                             }`} />
                                         <span className="text-sm font-medium text-gray-600">{effectiveStatus}</span>
+                                        {charger.power_kw && (
+                                            <span className="text-xs bg-gray-100 text-gray-600 px-1.5 py-0.5 rounded border border-gray-200">
+                                                {charger.power_kw} kW
+                                            </span>
+                                        )}
                                     </div>
                                     <p className="text-xs text-gray-500 mt-1">{currency}{(charger.cost_per_kwh * conversionRate).toFixed(2)}/kWh</p>
                                     <button

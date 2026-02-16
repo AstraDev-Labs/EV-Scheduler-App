@@ -43,6 +43,7 @@ class ChargeRequest(BaseModel):
     ready_by: str
     priority: str
     country: Optional[str] = "India"
+    charger_power: Optional[float] = 7.0
 
 class ScheduleResponse(BaseModel):
     slots: List[dict]
@@ -511,6 +512,7 @@ class AddChargerRequest(BaseModel):
     location: dict
     status: str
     cost_per_kwh: float
+    power_kw: Optional[float] = 7.0
     user_id: Optional[str] = None # Should come from session/token but for now passing from client or middleware context
 
 @app.post("/api/chargers/add")

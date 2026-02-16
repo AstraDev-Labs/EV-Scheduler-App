@@ -171,7 +171,8 @@ export default function BookingModal({ charger, onClose, onSuccess, prefillTime,
             const endDateTime = new Date(startDateTime.getTime() + parseInt(duration) * 60 * 60 * 1000)
 
             // Calculate estimated cost
-            const energyKwh = parseInt(duration) * 7 // Assume 7kW charging rate
+            const power = charger.power_kw || 7.0 // Default to 7kW if not specified
+            const energyKwh = parseInt(duration) * power
             const totalCost = energyKwh * charger.cost_per_kwh
 
             // Create booking via Backend API (handles conflict checks)
@@ -424,13 +425,13 @@ export default function BookingModal({ charger, onClose, onSuccess, prefillTime,
                         <div className="bg-green-500/5 border border-green-500/10 p-4 rounded-xl space-y-2">
                             <div className="flex justify-between text-sm">
                                 <span className="text-gray-400">Estimated Energy</span>
-                                <span className="font-semibold text-white">{parseInt(duration) * 7} kWh</span>
+                                <span className="font-semibold text-white">{parseInt(duration) * (charger.power_kw || 7)} kWh</span>
                             </div>
                             <div className="flex justify-between text-sm pt-2 border-t border-white/5">
                                 <span className="text-gray-400">Total Cost</span>
                                 <span className="font-bold text-green-400 flex items-center">
                                     {currency}
-                                    {(parseInt(duration) * 7 * charger.cost_per_kwh * conversionRate).toFixed(2)}
+                                    {(parseInt(duration) * (charger.power_kw || 7) * charger.cost_per_kwh * conversionRate).toFixed(2)}
                                 </span>
                             </div>
                         </div>

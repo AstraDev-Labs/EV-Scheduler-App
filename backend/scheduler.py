@@ -78,7 +78,8 @@ def get_optimized_schedule(request):
         current_time = datetime.now()
         
         # CHARGING SPEEDS (kW)
-        CHARGER_SPEED = 7.0  # 7kW Level 2 Charger
+        # Default to 7.0kW Level 2 Charger if not specified in request
+        CHARGER_SPEED = getattr(request, 'charger_power', 7.0) or 7.0
         time_needed_hours = energy_needed / CHARGER_SPEED
         
         # Generate potential slots (every hour from now until ready_by)
